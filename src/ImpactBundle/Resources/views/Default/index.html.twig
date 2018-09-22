@@ -1,0 +1,150 @@
+
+  <!DOCTYPE html>
+    <html lang="es">
+        {% block head %}
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="hotel">
+        <meta name="author" content="yaritza Aburdene">
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
+
+        <title>Impact</title>
+
+        <!-- CSS -->
+        {% block bootstrap %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+        {% endblock bootstrap %}
+
+        <link href="{{asset('public/css/style.css')}}" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- Datepicker-->
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+
+    </head>
+    <!-- NAVBAR
+    ================================================== -->
+    <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="{{path('impact_homepage')}}"><img class="img-responsive"  src="{{asset('public/images/LogoLittle.png')}}"/></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('impact_homepage') }}">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('impact_about')}}">Hermandad</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#">Juegos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{path('impact_forum')}}">Foro</a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}  
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
+             {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} 
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% if is_granted('ROLE_ADMIN') %}
+              <a class="nav-link" class="dropdown-item" href="{{ path('impact_forum_admin') }}"><span class="glyphicon glyphicon-log-out"></span> Administrar Foro</a>
+                {% endif %}
+              <a class="nav-link" class="dropdown-item" href="{{ path('fos_user_profile_show') }}">
+                    <span class="glyphicon glyphicon-user"></span> Perfil</a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link"  class="dropdown-item" href="{{ path('fos_user_security_logout') }}" ><span class="fa fa-power-off"></span>  {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a>
+             {% else %}
+          <li class="nav-item"><a class="nav-link" href="{{ path('fos_user_security_login') }}" > {{ 'layout.login'|trans({}, 'FOSUserBundle') }} <span class="fa fa-user" /></a>
+          </li> 
+        </div>
+
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
+      {% endblock %}  
+  <div class="container-fluid" style="min-height: 690px; margin-top: 5px;">
+  {% block body %} 
+  <div class="row" >
+  	<div class="col-md-4">
+  		<div id="ts3viewer_1111486" class="news"  style="height:650px; "> </div>
+
+  		<script src="https://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
+  		<script>
+  		var ts3v_url_1 = "https://www.tsviewer.com/ts3viewer.php?ID=1111486&text=ffffff&text_size=12&text_family=6&text_s_color=ffffff&text_s_weight=bold&text_s_style=normal&text_s_variant=normal&text_s_decoration=none&text_i_color=949494&text_i_weight=normal&text_i_style=normal&text_i_variant=normal&text_i_decoration=none&text_c_color=ffffff&text_c_weight=normal&text_c_style=normal&text_c_variant=normal&text_c_decoration=none&text_u_color=bdbdbd&text_u_weight=normal&text_u_style=normal&text_u_variant=normal&text_u_decoration=none&text_s_color_h=&text_s_weight_h=bold&text_s_style_h=normal&text_s_variant_h=normal&text_s_decoration_h=none&text_i_color_h=bdbdbd&text_i_weight_h=bold&text_i_style_h=normal&text_i_variant_h=normal&text_i_decoration_h=none&text_c_color_h=bdbdbd&text_c_weight_h=normal&text_c_style_h=normal&text_c_variant_h=normal&text_c_decoration_h=none&text_u_color_h=&text_u_weight_h=bold&text_u_style_h=normal&text_u_variant_h=normal&text_u_decoration_h=none&flags=0&iconset=default_colored_2014";
+  		ts3v_display.init(ts3v_url_1, 1111486, 100);
+  		</script>
+  	</div>
+  	<div class="col-md-4">
+  		<div class="container-fluid">
+  			<div class="row">
+  			<div class="news">
+  			<h2>SOBRE IMPACT</h2>
+  			<p>Somos una comunidad de jugadores muy amplia, con diferentes campos como el World of Warcraft, Leage of Legends, Counter Strike... También disponemos de un servicio de comunicación, TeamSpeak, con servidor propio y canales dedicados donde podrás compartir los mejores momentos con el resto de miembros.</p>
+  			</div>
+  			</div>
+  			<div class="row">
+  			<div class="news">
+  			<h2>COMO SER PARTE DE NUESTRA COMUNIDAD</h2>
+  			<p>Disponemos de un sistema de apply's para aquellas personas que quieran formar parte de la comunidad, si estás interesado, puedes presentar tu solicitud en los períodos de apertura.</p>
+  			</div>
+  			</div>
+  	</div>
+  </div>
+    <div class="col-md-4">
+      <iframe src="https://discordapp.com/widget?id=480150654694850560&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  {% endblock %}
+  </div>
+
+      {% block footer %}
+      <!-- JavaScript ============================================ -->
+
+      {% block bootstrapscript %}
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+      {% endblock bootstrapscript %}
+
+    <div class="row">
+      <div class="col-12 footer justify-content-md-center" align="center">
+        <div class="row justify-content-md-center">
+        <div class="col-2" style="
+    margin-top: 12px;">
+        <h1>SIGUENOS</h1>
+      </div>
+        <div class="col-1">
+    		  <i class="fa fa-facebook fa-3x" ></i></div>
+        <div class="col-1">
+          <i class="fa fa-twitter fa-3x" href="#"></i></div>
+  		</div>
+    </div>
+  </div>
+<div class=" footnote" align="center">
+    <div class="row">
+      	<div class="col-md-3"></div>
+  	     <div class="col-md-6">
+  		    <p style="color:black;">&copy; 2018 BY BARCHAR - IMPACT | ALL RIGHTS RESERVED</p>
+  		</div>	
+      	<div class="col-md-3"></div>	  
+  	</div>
+  </div>
+  </body>
+  </html>
+  {% endblock %}

@@ -1,0 +1,52 @@
+services:
+#    impact.example:
+#        class: ImpactBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
+
+    discutea.forum.twig_extension:
+        class: ImpactBundle\Twig\DForumExtension
+        arguments: 
+            - '@doctrine.orm.entity_manager'
+            - '@router'
+            - '%discutea_forum.pagination%'
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    discutea.forum.pagin:
+            class: ImpactBundle\Component\Pagin
+            public: true
+            arguments:
+                - '@request_stack'
+                - '@knp_paginator'
+                - '%discutea_forum.pagination%'
+                - '%discutea_forum.pagination.pagename%'
+                
+    discutea.forum.security.category_voter:
+        class: ImpactBundle\Security\CategoryVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
+
+    discutea.forum.security.forum_voter:
+        class: ImpactBundle\Security\ForumVoter
+        arguments: 
+            - '@security.access.decision_manager'
+        public: false
+        tags:
+            - { name: security.voter }
+
+    discutea.forum.security.topic_voter:
+        class: ImpactBundle\Security\TopicVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
+
+    discutea.forum.security.post_voter:
+        class: ImpactBundle\Security\PostVoter
+        arguments: ['@security.access.decision_manager']
+        public: false
+        tags:
+            - { name: security.voter }
