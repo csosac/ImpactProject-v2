@@ -76,10 +76,10 @@
     </div>
   </nav>
       {% endblock %}  
-  <div class="container-fluid" style="min-height: 690px; margin-top: 5px;">
+  <div class="container-fluid" style="min-height: 754px; margin-top: 15px;">
   {% block body %} 
-  <div class="row" >
-  	<div class="col-md-4">
+  <div class="row  justify-content-md-center" >
+  	<div class="col-md-2">
   		<div id="ts3viewer_1111486" class="news"  style="height:650px; "> </div>
 
   		<script src="https://static.tsviewer.com/short_expire/js/ts3viewer_loader.js"></script>
@@ -104,7 +104,7 @@
   			</div>
   	</div>
   </div>
-    <div class="col-md-4">
+    <div class="col-md-2">
       <iframe src="https://discordapp.com/widget?id=480150654694850560&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
     </div>
   </div>
@@ -122,29 +122,49 @@
 
       {% endblock bootstrapscript %}
 
-    <div class="row">
-      <div class="col-12 footer justify-content-md-center" align="center">
+
+<!-- Footer -->
+<footer class="page-footer font-small cyan darken-3" style="background-color: grey;">
+
+    <!-- Footer Elements -->
+    <div class="container">
+
+      <!-- Grid row-->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-12 py-2" style="margin-top: 19px;">
+
         <div class="row justify-content-md-center">
-        <div class="col-2" style="
-    margin-top: 12px;">
-        <h1>SIGUENOS</h1>
+        <div class="col-2">
+        <p class="titlefooter">SIGUENOS</p>
       </div>
         <div class="col-1">
-    		  <i class="fa fa-facebook fa-3x" ></i></div>
+          <i class="fa fa-facebook fa-2x" ></i></div>
         <div class="col-1">
-          <i class="fa fa-twitter fa-3x" href="#"></i></div>
-  		</div>
+          <i class="fa fa-twitter fa-2x" href="#"></i></div>
+      </div>
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row-->
+
     </div>
-  </div>
-<div class=" footnote" align="center">
-    <div class="row">
-      	<div class="col-md-3"></div>
-  	     <div class="col-md-6">
-  		    <p style="color:black;">&copy; 2018 BY BARCHAR - IMPACT | ALL RIGHTS RESERVED</p>
-  		</div>	
-      	<div class="col-md-3"></div>	  
-  	</div>
-  </div>
+    <!-- Footer Elements -->
+
+    <!-- Copyright -->
+              <p style="background-color: white; color:black;" align="center">&copy; 2018 BY BARCHAR - IMPACT | ALL RIGHTS RESERVED</p>
+    <!-- Copyright -->
+
+</footer>
+  <!-- Footer -->
+
+
+
+
+
   </body>
   </html>
   {% endblock %}

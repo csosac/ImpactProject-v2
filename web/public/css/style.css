@@ -104,11 +104,10 @@ border-radius: 5px;
     padding: 10px 0 0;
 }
 
-.footer h1{
-	color: #FFFFFF;
+
+.titlefooter{
     font-family: audiowide-regular-webfont;
      font-size: 23px;
-    font-weight: normal;
 }
 
 .footnote{
