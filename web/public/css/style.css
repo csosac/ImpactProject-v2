@@ -3,9 +3,8 @@
 }
 
 body{
-	background:url(../images/background2.png) center no-repeat;
+	background:url(../images/background2.png) no-repeat;
 	background-color:black;
-    background-size: cover;
     color: white;
 }
 

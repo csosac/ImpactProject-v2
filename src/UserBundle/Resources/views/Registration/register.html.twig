@@ -1,4 +1,4 @@
 {% extends "UserBundle:Default:userbase.html.twig" %}
 {% block content %}
-    {% block fos_user_content %}{% endblock %}
+{% include "@FOSUser/Registration/register_content.html.twig" %}
 {% endblock %}
