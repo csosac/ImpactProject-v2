@@ -8,7 +8,7 @@ body{
 }
 
 .navbar{
-	opacity: 0.75;
+	opacity: 0.85;
 	min-height: 60px;
     background-color: black !important;
     border-bottom: 1px solid;
@@ -70,14 +70,14 @@ body{
 /*-------------------------------------------Login---------------------------------------------*/
 
 .boxlogin{
-	min-height: 290px;
+	min-height: 315px;
     opacity: 0.80;
     padding: 16px 20px 20px 20px;
-    background: url(../images/bg-transparent1.png) repeat;
+    background-color: black;
 }
 
 .btn-head-login{
-	background-color: black;
+	background-color: grey;
     color: white;
     transition: box-shadow .4s ease-in-out;
     margin-bottom: 10px;
@@ -89,6 +89,22 @@ body{
     -webkit-box-shadow: inset 0 -2px 0  #FE9F07 !important;    
 }
 
+.fos_user_registration_register label {
+    width: 100% !important;
+    text-align: left !important;
+    font-weight: bolder;
+}
+
+.fos_user_registration_register input {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px !important;
+    font-size: 14px;
+    color: black !important;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
 
 
 /*-------------------------------------------Footer---------------------------------------------*/
