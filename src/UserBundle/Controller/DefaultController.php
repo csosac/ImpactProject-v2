@@ -21,10 +21,10 @@ class DefaultController extends Controller
         ));
     }
 
- /*   public function editAction($id,Request $request){
-        $usuari = $this->getDoctrine()->getRepository('HotelBundle:User')->findOneById($id);
+    public function editAction($id,Request $request){
+        $usuari = $this->getDoctrine()->getRepository('ImpactBundle:User')->findOneById($id);
         $form = $this->createFormBuilder($usuari)
-            ->add('username', TextType::class, array('label' => 'Nom d\'usuari','attr' => array(
+            ->add('username', TextType::class, array('label' => 'Nombre de usuario','attr' => array(
                     'class' => 'form-control'),
                     'label_attr'=> array('class' => 'label_text spaceTop')))  
             ->add('email', EmailType::class, array('label' => 'Email','attr' => array(
@@ -35,8 +35,8 @@ class DefaultController extends Controller
                     'label_attr'=> array('class' => 'label_text spaceTop')))    
             ->add('roles', ChoiceType::class, array('label' => 'Rol', 
             'attr' => ['class' => 'selectRol'],
-            'required' => true, 'choices' => array("Treballador" => 'ROLE_TREBALLADOR', "Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true))
-            ->add('save', SubmitType::class, array('label' => 'Editar Usuari',
+            'required' => true, 'choices' => array("Administrador" => 'ROLE_ADMIN', "Usuari" => 'ROLE_USER'), 'multiple' => true))
+            ->add('save', SubmitType::class, array('label' => 'Modificar Usuario',
                     'attr' => array(
                         'class' => 'btn btn-warning mt')))
             ->getForm();
@@ -56,17 +56,17 @@ class DefaultController extends Controller
             $this->get('session')->getFlashBag()->add(
                     'notice',array(
                     'type' => 'success',
-                    'msg' => 'S\'ha editat l\'usuari'
+                    'msg' => 'Usuario modifcado correctamente'
             ));
-            return $this->redirect($this->generateurl('hotel_bundle_usuari_homepage'));
+            return $this->redirect($this->generateurl('admin_homepage'));
         };
  
-        return $this->render('HotelBundleAdminBundle:Default:addObject.html.twig', array(
-            'titol' => 'Editar Usuari',
+        return $this->render('AdminBundle:Default:addObject.html.twig', array(
+            'titol' => 'Modificar Usuari',
             'form' => $form->createView()
         ));
     }
-
+/*
     public function deleteAction($id){
     	$usuari = $this->getDoctrine()->getRepository('HotelBundle:User')->findOneById($id);
     	echo $usuari;

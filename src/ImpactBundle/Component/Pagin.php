@@ -1,5 +1,5 @@
 <?php
-namespace Impact\ImpactBundle\Component;
+namespace ImpactBundle\Component;
 use Knp\Component\Pager\Paginator;
 use Symfony\Component\HttpFoundation\RequestStack;
 
