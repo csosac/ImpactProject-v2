@@ -11,25 +11,15 @@
 
 namespace Symfony\Bundle\FrameworkBundle\Tests\Functional;
 
-use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 use Symfony\Component\Cache\Exception\InvalidArgumentException;
 
 class CachePoolsTest extends WebTestCase
 {
-    protected function setUp()
-    {
-        $_SERVER['SYMFONY__REDIS_HOST'] = getenv('REDIS_HOST');
-    }
-
-    protected function tearDown()
-    {
-        unset($_SERVER['SYMFONY__REDIS_HOST']);
-    }
-
     public function testCachePools()
     {
-        $this->doTestCachePools(array(), FilesystemAdapter::class);
+        $this->doTestCachePools(array(), AdapterInterface::class);
     }
 
     /**
@@ -77,7 +67,7 @@ class CachePoolsTest extends WebTestCase
         }
     }
 
-    public function doTestCachePools($options, $adapterClass)
+    private function doTestCachePools($options, $adapterClass)
     {
         static::bootKernel($options);
         $container = static::$kernel->getContainer();

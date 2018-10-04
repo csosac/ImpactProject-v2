@@ -1,3 +1,7 @@
+#admin:
+#    resource: "@AdminBundle/Resources/config/routing.yml"
+#    prefix:   /
+
 user:
     resource: "@UserBundle/Controller/"
     type:     annotation
@@ -7,9 +11,9 @@ impact:
     resource: "@ImpactBundle/Resources/config/routing.yml"
     prefix:   /
 
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+#app:
+#    resource: '@AppBundle/Controller/'
+#    type: annotation
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"

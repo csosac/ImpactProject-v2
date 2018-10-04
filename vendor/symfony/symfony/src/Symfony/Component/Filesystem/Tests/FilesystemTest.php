@@ -156,6 +156,9 @@ class FilesystemTest extends FilesystemTestCase
         $this->assertEquals('SOURCE FILE', file_get_contents($targetFilePath));
     }
 
+    /**
+     * @group network
+     */
     public function testCopyForOriginUrlsAndExistingLocalFileDefaultsToCopy()
     {
         $sourceFilePath = 'http://symfony.com/images/common/logo/logo_symfony_header.png';
@@ -372,15 +375,15 @@ class FilesystemTest extends FilesystemTestCase
     public function testFilesExistsFails()
     {
         if ('\\' !== DIRECTORY_SEPARATOR) {
-            $this->markTestSkipped('Test covers edge case on Windows only.');
+            $this->markTestSkipped('Long file names are an issue on Windows');
         }
-
         $basePath = $this->workspace.'\\directory\\';
+        $maxPathLength = PHP_MAXPATHLEN - 2;
 
         $oldPath = getcwd();
         mkdir($basePath);
         chdir($basePath);
-        $file = str_repeat('T', 259 - strlen($basePath));
+        $file = str_repeat('T', $maxPathLength - strlen($basePath) + 1);
         $path = $basePath.$file;
         exec('TYPE NUL >>'.$file); // equivalent of touch, we can not use the php touch() here because it suffers from the same limitation
         $this->longPathNamesWindows[] = $path; // save this so we can clean up later
@@ -593,7 +596,10 @@ class FilesystemTest extends FilesystemTestCase
 
         $this->filesystem->hardlink($file, $link);
 
-        $this->filesystem->chown($link, $this->getFileOwner($link));
+        $owner = $this->getFileOwner($link);
+        $this->filesystem->chown($link, $owner);
+
+        $this->assertSame($owner, $this->getFileOwner($link));
     }
 
     /**
@@ -699,7 +705,10 @@ class FilesystemTest extends FilesystemTestCase
 
         $this->filesystem->hardlink($file, $link);
 
-        $this->filesystem->chgrp($link, $this->getFileGroup($link));
+        $group = $this->getFileGroup($link);
+        $this->filesystem->chgrp($link, $group);
+
+        $this->assertSame($group, $this->getFileGroup($link));
     }
 
     /**
@@ -1084,9 +1093,6 @@ class FilesystemTest extends FilesystemTestCase
         $this->assertEquals($expectedPath, $path);
     }
 
-    /**
-     * @return array
-     */
     public function providePathsForMakePathRelative()
     {
         $paths = array(
@@ -1094,7 +1100,6 @@ class FilesystemTest extends FilesystemTestCase
             array('/var/lib/symfony/src/Symfony/', '/var/lib/symfony/src/Symfony/Component/', '../'),
             array('/var/lib/symfony/src/Symfony', '/var/lib/symfony/src/Symfony/Component', '../'),
             array('/var/lib/symfony/src/Symfony', '/var/lib/symfony/src/Symfony/Component/', '../'),
-            array('var/lib/symfony/', 'var/lib/symfony/src/Symfony/Component', '../../../'),
             array('/usr/lib/symfony/', '/var/lib/symfony/src/Symfony/Component', '../../../../../../usr/lib/symfony/'),
             array('/var/lib/symfony/src/Symfony/', '/var/lib/symfony/', 'src/Symfony/'),
             array('/aa/bb', '/aa/bb', './'),
@@ -1134,6 +1139,36 @@ class FilesystemTest extends FilesystemTestCase
         }
 
         return $paths;
+    }
+
+    /**
+     * @group legacy
+     * @dataProvider provideLegacyPathsForMakePathRelativeWithRelativePaths
+     * @expectedDeprecation Support for passing relative paths to Symfony\Component\Filesystem\Filesystem::makePathRelative() is deprecated since version 3.4 and will be removed in 4.0.
+     */
+    public function testMakePathRelativeWithRelativePaths($endPath, $startPath, $expectedPath)
+    {
+        $path = $this->filesystem->makePathRelative($endPath, $startPath);
+
+        $this->assertEquals($expectedPath, $path);
+    }
+
+    public function provideLegacyPathsForMakePathRelativeWithRelativePaths()
+    {
+        return array(
+            array('usr/lib/symfony/', 'var/lib/symfony/src/Symfony/Component', '../../../../../../usr/lib/symfony/'),
+            array('aa/bb', 'aa/cc', '../bb/'),
+            array('aa/cc', 'bb/cc', '../../aa/cc/'),
+            array('aa/bb', 'aa/./cc', '../bb/'),
+            array('aa/./bb', 'aa/cc', '../bb/'),
+            array('aa/./bb', 'aa/./cc', '../bb/'),
+            array('../../', '../../', './'),
+            array('../aa/bb/', 'aa/bb/', '../../../aa/bb/'),
+            array('../../../', '../../', '../'),
+            array('', '', './'),
+            array('', 'aa/', '../'),
+            array('aa/', '', 'aa/'),
+        );
     }
 
     public function testMirrorCopiesFilesAndDirectoriesRecursively()
@@ -1255,6 +1290,53 @@ class FilesystemTest extends FilesystemTestCase
         $this->assertEquals('\\' === DIRECTORY_SEPARATOR ? realpath($sourcePath.'\nested') : 'nested', readlink($targetPath.DIRECTORY_SEPARATOR.'link1'));
     }
 
+    public function testMirrorContentsWithSameNameAsSourceOrTargetWithoutDeleteOption()
+    {
+        $sourcePath = $this->workspace.DIRECTORY_SEPARATOR.'source'.DIRECTORY_SEPARATOR;
+
+        mkdir($sourcePath);
+        touch($sourcePath.'source');
+        touch($sourcePath.'target');
+
+        $targetPath = $this->workspace.DIRECTORY_SEPARATOR.'target'.DIRECTORY_SEPARATOR;
+
+        $oldPath = getcwd();
+        chdir($this->workspace);
+
+        $this->filesystem->mirror('source', $targetPath);
+
+        chdir($oldPath);
+
+        $this->assertTrue(is_dir($targetPath));
+        $this->assertFileExists($targetPath.'source');
+        $this->assertFileExists($targetPath.'target');
+    }
+
+    public function testMirrorContentsWithSameNameAsSourceOrTargetWithDeleteOption()
+    {
+        $sourcePath = $this->workspace.DIRECTORY_SEPARATOR.'source'.DIRECTORY_SEPARATOR;
+
+        mkdir($sourcePath);
+        touch($sourcePath.'source');
+
+        $targetPath = $this->workspace.DIRECTORY_SEPARATOR.'target'.DIRECTORY_SEPARATOR;
+
+        mkdir($targetPath);
+        touch($targetPath.'source');
+        touch($targetPath.'target');
+
+        $oldPath = getcwd();
+        chdir($this->workspace);
+
+        $this->filesystem->mirror('source', 'target', null, array('delete' => true));
+
+        chdir($oldPath);
+
+        $this->assertTrue(is_dir($targetPath));
+        $this->assertFileExists($targetPath.'source');
+        $this->assertFileNotExists($targetPath.'target');
+    }
+
     /**
      * @dataProvider providePathsForIsAbsolutePath
      */
@@ -1265,9 +1347,6 @@ class FilesystemTest extends FilesystemTestCase
         $this->assertEquals($expectedResult, $result);
     }
 
-    /**
-     * @return array
-     */
     public function providePathsForIsAbsolutePath()
     {
         return array(
@@ -1439,6 +1518,81 @@ class FilesystemTest extends FilesystemTestCase
 
         // Zlib stat uses file:// wrapper so remove scheme
         $this->assertFileExists(str_replace($scheme, '', $filename));
+        $this->assertSame('bar', file_get_contents($filename));
+    }
+
+    public function testAppendToFile()
+    {
+        $filename = $this->workspace.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'bar.txt';
+
+        // skip mode check on Windows
+        if ('\\' !== DIRECTORY_SEPARATOR) {
+            $oldMask = umask(0002);
+        }
+
+        $this->filesystem->dumpFile($filename, 'foo');
+
+        $this->filesystem->appendToFile($filename, 'bar');
+
+        $this->assertFileExists($filename);
+        $this->assertSame('foobar', file_get_contents($filename));
+
+        // skip mode check on Windows
+        if ('\\' !== DIRECTORY_SEPARATOR) {
+            $this->assertFilePermissions(664, $filename, 'The written file should keep the same permissions as before.');
+            umask($oldMask);
+        }
+    }
+
+    public function testAppendToFileWithScheme()
+    {
+        if (defined('HHVM_VERSION')) {
+            $this->markTestSkipped('HHVM does not handle the file:// scheme correctly');
+        }
+
+        $scheme = 'file://';
+        $filename = $scheme.$this->workspace.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'baz.txt';
+        $this->filesystem->dumpFile($filename, 'foo');
+
+        $this->filesystem->appendToFile($filename, 'bar');
+
+        $this->assertFileExists($filename);
+        $this->assertSame('foobar', file_get_contents($filename));
+    }
+
+    public function testAppendToFileWithZlibScheme()
+    {
+        $scheme = 'compress.zlib://';
+        $filename = $this->workspace.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'baz.txt';
+        $this->filesystem->dumpFile($filename, 'foo');
+
+        // Zlib stat uses file:// wrapper so remove it
+        $this->assertSame('foo', file_get_contents(str_replace($scheme, '', $filename)));
+
+        $this->filesystem->appendToFile($filename, 'bar');
+
+        $this->assertFileExists($filename);
+        $this->assertSame('foobar', file_get_contents($filename));
+    }
+
+    public function testAppendToFileCreateTheFileIfNotExists()
+    {
+        $filename = $this->workspace.DIRECTORY_SEPARATOR.'foo'.DIRECTORY_SEPARATOR.'bar.txt';
+
+        // skip mode check on Windows
+        if ('\\' !== DIRECTORY_SEPARATOR) {
+            $oldMask = umask(0002);
+        }
+
+        $this->filesystem->appendToFile($filename, 'bar');
+
+        // skip mode check on Windows
+        if ('\\' !== DIRECTORY_SEPARATOR) {
+            $this->assertFilePermissions(664, $filename);
+            umask($oldMask);
+        }
+
+        $this->assertFileExists($filename);
         $this->assertSame('bar', file_get_contents($filename));
     }
 
