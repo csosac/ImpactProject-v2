@@ -1,4 +1,4 @@
-{% extends "ImpactBundle:Default:backend.html.twig" %}
+{% extends "AdminBundle:Default:index.html.twig" %}
 {% block title %}Llista de usuarios{% endblock %}
 	{% block content %} 
 		<div id="contingut">
@@ -18,20 +18,20 @@
 								<table id="table_id" class="table table-striped table-bordered">
 									<thead>
 										<tr>
-											<th>Nommbre de usuario</th>
+											<th>Nombre de usuario</th>
 											<th>Email</th>
-											<th>Ultima sessió</th>
+											<th>Ultima sesión</th>
 											<th>Activo</th>											
-											<th><span class="fa fa-cogs"></span> Config</th>
+											<th><span class="fa fa-cogs"></span> Configuración</th>
 										</tr>
 									</thead>
 									<tfoot>
 										<tr>
-											<th>Nommbre de usuario</th>
+											<th>Nombre de usuario</th>
 											<th>Email</th>
-											<th>Ultima sessió</th>
+											<th>Ultima sesión</th>
 											<th>Activo</th>											
-											<th><span class="fa fa-cogs"></span> Config</th>
+											<th><span class="fa fa-cogs"></span> Configuración</th>
 										</tr>
 									</tfoot>
 									<tbody>
@@ -47,8 +47,7 @@
 											{% endif %}
 											<td>
 												<center>
-												<a href="{{ path('hotel_bundle_usuari_edit', { 'id': usuari.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>
-												<a  href="{{path('hotel_bundle_usuari_delete', { 'id': usuari.id }) }}"class="btn btn-xs btn-danger"><span class="fa fa-trash"></span></a>
+												<a href="{{ path('user_bundle_edit', { 'id': usuari.id }) }}" class="btn btn-xs btn-info"><span class="fa fa-pencil"></span></a>
 												</center>
 											</td>
 										</tr>

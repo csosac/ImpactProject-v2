@@ -69,7 +69,7 @@ class ForumController extends BaseController
             return $this->redirect($this->generateUrl('discutea_forum_admin_dashboard'));
         }
 
-        return $this->render('@Imapct/Admin/forum.html.twig', array(
+        return $this->render('@Impact/Admin/forum.html.twig', array(
             'form' => $form->createView()
         ));
     }

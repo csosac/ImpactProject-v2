@@ -2,9 +2,9 @@
 
 namespace ImpactBundle\Controller\Base;
 
-use Impact\ImpactBundle\Entity\Post;
-use Impact\ImpactBundle\Form\Type\PostType;
-use Impact\ImpactBundle\Entity\Topic;
+use ImpactBundle\Entity\Post;
+use ImpactBundle\Form\Type\PostType;
+use ImpactBundle\Entity\Topic;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
 use Symfony\Component\Form\Form;

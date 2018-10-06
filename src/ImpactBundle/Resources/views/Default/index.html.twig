@@ -60,6 +60,8 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% if is_granted('ROLE_ADMIN') %}
               <a class="nav-link" class="dropdown-item" href="{{ path('impact_forum_admin') }}"><span class="glyphicon glyphicon-log-out"></span> Administrar Foro</a>
+
+              <a class="nav-link" class="dropdown-item" href="{{ path('admin_homepage') }}"><span class="glyphicon glyphicon-log-out"></span> Administrar Web</a>
                 {% endif %}
               <a class="nav-link" class="dropdown-item" href="{{ path('fos_user_profile_show') }}">
                     <span class="glyphicon glyphicon-user"></span> Perfil</a>

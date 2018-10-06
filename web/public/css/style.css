@@ -191,3 +191,10 @@ body{
 	src: url('../fonts/audiowide-regular-webfont.eot');
 	src: url('../fonts/audiowide-regular-webfont.woff') format('woff'), url('../fonts/audiowide-regular-webfont.ttf') format('truetype'), url('../fonts/audiowide-regular-webfont.svg') format('svg');
 }
+
+
+/*-------------------------------------------FONTS---------------------------------------------*/
+
+.list-group-item{
+	background-color: black;
+}

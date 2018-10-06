@@ -1,15 +1,15 @@
 user_bundle_homepage:
-    path:     /
+    path:     /admin/user
     defaults: { _controller: UserBundle:Default:index }
 
-##hotel_bundle_usuari_editprofile:
-#    path:     /editprofile/
-#    defaults: { _controller: FOSUserBundle:Profile:administrarUser }
+user_bundle_editprofile:
+    path:     /admin/editprofile/
+    defaults: { _controller: FOSUserBundle:Profile:administrarUser }
 
-#hotel_bundle_usuari_edit:
-#    path:     /edit/{id}
-#    defaults: { _controller: HotelBundleUsuariBundle:Default:edit }
+user_bundle_edit:
+    path:     /admin/edit/{id}
+    defaults: { _controller: UserBundle:Default:edit }
 
-#hotel_bundle_usuari_delete:
+#user_bundle_delete:
 #    path:     /delete/{id}
-#    defaults: { _controller: HotelBundleUsuariBundle:Default:delete }
+#   defaults: { _controller: HotelBundleUsuariBundle:Default:delete }lokurax

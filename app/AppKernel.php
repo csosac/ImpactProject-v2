@@ -19,11 +19,10 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
            
-            //new AppBundle\AppBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new ImpactBundle\ImpactBundle(),
             new UserBundle\UserBundle(),
-            //new AdminBundle\AdminBundle(),
+            new AdminBundle\AdminBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
