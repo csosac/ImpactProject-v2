@@ -350,7 +350,7 @@
             </trans-unit>
             <trans-unit id="d25">
                 <source>discutea.forum.btn.submit</source>
-                <target>Someter</target>
+                <target>Enviar</target>
             </trans-unit>
             <trans-unit id="d26">
                 <source>Preview</source>

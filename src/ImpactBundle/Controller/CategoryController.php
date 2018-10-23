@@ -5,11 +5,11 @@ namespace ImpactBundle\Controller;
 use ImpactBundle\Controller\Base\BaseController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use ImpactBundle\Form\Type\Remover\RemoveCategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use ImpactBundle\Entity\Category;
 use ImpactBundle\Form\Type\CategoryType;
+use ImpactBundle\Form\Type\Remover\RemoveCategoryType;
 
 /**
  * CategoryController 
@@ -91,13 +91,13 @@ class CategoryController extends BaseController
      */
     public function removeCategoryAction(Request $request, Category $category)
     {
-        $form = $this->createForm(RemoveCategoryType::class);
 
+        $form = $this->createForm(RemoveCategoryType::class);
+        $em = $this->getEm();
         $form->handleRequest($request);
         
         if (($form->isSubmitted()) && ($form->isValid())) 
         {
-            $em = $this->getEm();
             if ($form->getData()['purge'] === false) {
                 
                 $newCat = $em->getRepository(Category::class)->find($form->getData()['movedTo']) ;

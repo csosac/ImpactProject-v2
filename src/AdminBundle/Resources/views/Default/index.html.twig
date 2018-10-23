@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
 
 		<link rel="stylesheet" type="text/css" href="{{asset('public/css/estil.css')}}">
-		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 
 		<!-- DataTable-->
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.css">
@@ -104,42 +104,42 @@
 				<div class="col-lg-12">
 					<div class="row">
 						<div class="col-lg-8 main-chart">
-							 <h2 class="text-center">Estadistiques de l'hotel</h2>
+							 <h2 class="text-center">Estadisticas de la web</h2>
                                 <div class="row mt">
                                     <div class="col-md-3 col-md-push-1 col-sm-2  box0 bg-primary">
                                         <div class="box1">
-                                            <h5>Habitacions</h5>
-                                            <span class="fa fa-bed"</span>
-                                            <h3>numHabitacions</h3>
+                                            <h5>Foro</h5>
+                                            <span class="fa fa-newspaper"</span>
+                                            <h3>numPosts</h3>
                                         </div>
-                                        <p>En aquest hotel hi ha un total de numHabitacions habitacions</p>
+                                        <p>Total de posts -PROXIMAMENTE-</p>
                                     </div>                                   
                                     <div class="col-md-3 col-md-push-2 col-sm-2 box0 bg-primary">
                                         <div class="box1">
-                                            <h5>Reserves</h5>
-                                            <span class="fa fa-ticket"></span>
-                                            <h3>numReserves</h3>
+                                            <h5>Noticias</h5>
+                                            <span class="fab fa-wpforms"></span>
+                                            <h3>numNoticias</h3>
                                         </div>
-                                        <p>Existeixen numReserves Reserves realitzades a l'hotel. </p>
+                                        <p>Total de noticias: -PROXIMAMENTE-</p>
                                     </div>
                                     <div class="col-md-3 col-md-push-3  col-sm-2 box0 bg-primary">
                                         <div class="box1">
-                                            <h5>Clients</h5>
+                                            <h5>Usuarios</h5>
                                             <span class="fa fa-users"></span>
                                             <h3>numClient</h3>
                                         </div>
-                                        <p>Actualment hi han numClient en aquest hotel. </p>
+                                        <p>Actualmente hay un total de -numUsers- registrados. </p>
                                     </div>
                                 </div><!-- /row mt -->	                               
                         </div>                          
                         <div class="col-lg-3 col-lg-push-1 ds mt">
                                 <!--Informació d'usuari-->
-                                <h3>Informació d'usuari connectat</h3>
+                                <h3>Información del usuario conectado</h3>
                                 <div class="desc">
                                     <div class="col-lg-12">                                     
-                                        <p><strong>Nom:</strong>  app.user.username | title</p>
+                                        <p><strong>Nommbre:</strong>  app.user.username | title</p>
                                         <p><strong>Email:</strong>  app.user.email | title}}</p>
-                                        <p><strong>Última Conneció:</strong>  app.user.lastlogin | date('d/m/Y')</p>                                           
+                                        <p><strong>Última Conexión:</strong>  app.user.lastlogin | date('d/m/Y')</p>                                           
                                     </div>
                                 </div>
                         </div><!-- /col-lg-3 informacio d'usuari connectat-->				
@@ -153,7 +153,7 @@
 		<!--footer-->
 		<footer class="footer mt">
 			<div class="text-center">
-				<p> Copyright &copy; 2017 - Hotel Ocean</p>                    
+				<p> Copyright &copy; 2018 - Impact</p>                    
 				<a href="#" class="go-top">
 					<i class="fa fa-angle-up"></i>
 				</a>
@@ -182,13 +182,13 @@
     		//Data Table
     		$('#table_id').DataTable( {
     			language: {
-    				search:         "Cercar:",
-    				info:           "Mostrant del _START_ al _END_ de _TOTAL_ dades",
-    				infoEmpty:     "No hi ha dades disponible en aquesta taula",
+    				search:         "Buscar:",
+    				info:           "Mostrando del _START_ al _END_ de un total de_TOTAL_",
+    				infoEmpty:     "No hay datos disponibles para mostrar",
     				paginate: {
-    					first:      "primer",
+    					first:      "primero",
     					previous:   "Anterior",
-    					next:       "Següent",
+    					next:       "Siguiente",
     					last:       "últim"
     				}
     			}
