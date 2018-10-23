@@ -86,11 +86,11 @@
                 </table>
               </div>
             </div>
+
+  {% if form is not null %}{% include 'ImpactBundle:Form:Topic.html.twig' %}{% endif %}
           </div>
         </div>
       </div>  
 
  
-  
-  {% if form is not null %}{% include 'ImpactBundle:Form:Topic.html.twig' %}{% endif %}
 {% endblock %}
