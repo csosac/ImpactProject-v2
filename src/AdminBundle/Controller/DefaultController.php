@@ -12,6 +12,13 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('AdminBundle:Default:index.html.twig');
+    	$posts = $this->getDoctrine()->getRepository('ImpactBundle:Post')->findAll();
+        $posts = count($posts);
+    	$users = $this->getDoctrine()->getRepository('ImpactBundle:User')->findAll();
+        $users = count($users);
+        return $this->render('AdminBundle:Default:index.html.twig', array(
+                    'numUsers' => $users,
+                	'numPosts' => $posts)
+    	);
     }
 }
