@@ -48,7 +48,7 @@
                   {{ knp_pagination_render(pagination) }}
                     {% for topic in pagination %}
                     <tr>
-                      <td>{{ topic.title }}</td>
+                      <td><a href="{{ path('discutea_forum_post', {'slug': topic.slug}) }}">{{ topic.title }}</a></td>
                       <td>
                         {% if topic.user is not null %}
                           {% set username = topic.user.username %}
